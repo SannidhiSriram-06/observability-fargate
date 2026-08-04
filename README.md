@@ -1,6 +1,6 @@
-# Cloud Security Observability Stack — AWS ECS Fargate
+# Observability Stack on AWS ECS Fargate
 
-A production-style security observability pipeline deployed on **AWS ECS Fargate** using Terraform. Prometheus scrapes infrastructure metrics and Grafana visualizes them with real-time alerting — built to simulate InfoSec SRE monitoring workflows.
+A container observability pipeline deployed on **AWS ECS Fargate** using Terraform: Prometheus scrapes infrastructure metrics, Grafana visualizes them with real-time alerting. Built as a hands-on exercise in provisioning a monitoring stack on serverless containers — VPC, ECS, IAM, and CloudWatch logging, all via Terraform, with zero EC2 instances.
 
 ## Architecture
 ┌─────────────────────────────────────────────────────┐
@@ -61,6 +61,7 @@ A production-style security observability pipeline deployed on **AWS ECS Fargate
 - Containerized Prometheus + Grafana running on **ECS Fargate** (zero EC2)
 - Custom Prometheus Docker image built for `linux/amd64` and pushed to **ECR**
 - Prometheus scraping its own metrics (`prometheus_http_requests_total`, `prometheus_tsdb_head_series`)
+- Note: `prometheus.yml` also defines a `cloudwatch` scrape job (`localhost:9106`) for a CloudWatch exporter, but no exporter container is provisioned in this Terraform — that target is unused/always down and can be removed if not needed
 - Grafana dashboard with 3 panels: HTTP Requests, Request Rate (5m), Active Time Series
 - Alert rule: `High Request Rate Alert` — fires when request rate exceeds 0.5 (`severity: warning`)
 - CloudWatch log group for container logs with 7-day retention
@@ -120,6 +121,8 @@ docker push <account_id>.dkr.ecr.ap-south-1.amazonaws.com/prometheus-custom:late
 cd terraform
 terraform destroy -auto-approve
 ```
+
+> **Note:** AWS resources for this project have been decommissioned after validation to avoid ongoing cost. Screenshots capture the stack while it was live.
 
 ## Grafana Metrics
 
