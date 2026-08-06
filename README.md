@@ -17,8 +17,10 @@ A container observability pipeline deployed on **AWS ECS Fargate** using Terrafo
 │                           (severity: warning)        │
 │                                                      │
 │  ┌────────────────────────────────────────────────┐  │
-│  │  VPC → Subnets → IGW → Security Groups → ECR  │  │
+│  │   VPC → Subnets → IGW → Security Groups → ECS  │  │
 │  │           (Provisioned via Terraform)          │  │
+│  │   ECR repo referenced by image URI, created     │  │
+│  │           outside this Terraform                │  │
 │  └────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────┘
 
