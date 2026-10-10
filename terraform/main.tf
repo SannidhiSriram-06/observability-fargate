@@ -222,7 +222,7 @@ resource "aws_ecs_task_definition" "grafana" {
       environment = [
         {
           name  = "GF_SECURITY_ADMIN_PASSWORD"
-          value = "rubrik123"
+          value = var.grafana_admin_password
         },
         {
           name  = "GF_USERS_ALLOW_SIGN_UP"
