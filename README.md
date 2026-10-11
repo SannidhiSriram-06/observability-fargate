@@ -126,6 +126,12 @@ terraform destroy -auto-approve
 
 > **Note:** AWS resources for this project have been decommissioned after validation to avoid ongoing cost. Screenshots capture the stack while it was live.
 
+## Security & Scope Notes
+
+- The security group opens Grafana (3000) and Prometheus (9090) to `0.0.0.0/0`, and both tasks get public IPs. There is no load balancer, TLS or authentication in front of Prometheus. This suits a short-lived lab, not production.
+- Grafana runs the `grafana/grafana:latest` image with an admin password supplied through a Terraform variable.
+- The only scrape target that works is Prometheus itself, so the dashboard and alert show Prometheus' own metrics. No application workload is monitored.
+
 ## Grafana Metrics
 
 | Metric | Description |
